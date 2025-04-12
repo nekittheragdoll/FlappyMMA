@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://ogox70fdsivb"]
+
+[ext_resource type="Script" uid="uid://b234cu4257pqq" path="res://scripts/obstacle.gd" id="1_7ukg5"]
+[ext_resource type="Texture2D" uid="uid://xdfqa8al2epl" path="res://icon.svg" id="2_drdry"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3xr6u"]
+size = Vector2(184, 434)
+
+[node name="Obstacle" type="Area2D"]
+script = ExtResource("1_7ukg5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_3xr6u")
+debug_color = Color(0.882353, 0.337255, 0, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1, 3)
+scale = Vector2(1.34367, 3.37435)
+texture = ExtResource("2_drdry")

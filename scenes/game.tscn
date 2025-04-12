@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://b8iu07t0o2m7w"]
+
+[ext_resource type="PackedScene" uid="uid://bqx6m8odrrx4j" path="res://scenes/player.tscn" id="1_uwrxv"]
+[ext_resource type="Script" uid="uid://6vn3b5lq2acm" path="res://scripts/game.gd" id="1_yqjtg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uwrxv"]
+size = Vector2(835.5, 44)
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_yqjtg")
+
+[node name="Player" parent="." instance=ExtResource("1_uwrxv")]
+position = Vector2(365, 181)
+
+[node name="Floor" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+position = Vector2(407, 991)
+shape = SubResource("RectangleShape2D_uwrxv")
+debug_color = Color(0.996078, 0, 0.196078, 1)
+
+[node name="Spawn_Timer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 7.0
+autostart = true
+
+[connection signal="body_entered" from="Floor" to="." method="_on_obstacle_hit"]
+[connection signal="timeout" from="Spawn_Timer" to="." method="_spawn_obstacle"]
