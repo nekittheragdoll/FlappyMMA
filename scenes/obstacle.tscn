@@ -1,19 +1,48 @@
-[gd_scene load_steps=4 format=3 uid="uid://ogox70fdsivb"]
+[gd_scene load_steps=6 format=3 uid="uid://ogox70fdsivb"]
 
 [ext_resource type="Script" uid="uid://b234cu4257pqq" path="res://scripts/obstacle.gd" id="1_7ukg5"]
 [ext_resource type="Texture2D" uid="uid://xdfqa8al2epl" path="res://icon.svg" id="2_drdry"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3xr6u"]
-size = Vector2(184, 434)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_drdry"]
 
-[node name="Obstacle" type="Area2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cjuko"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sh7k1"]
+size = Vector2(20, 24.9082)
+
+[node name="Obstacles" type="Node2D"]
 script = ExtResource("1_7ukg5")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_3xr6u")
-debug_color = Color(0.882353, 0.337255, 0, 1)
+[node name="TopPart" type="Area2D" parent="."]
+scale = Vector2(2, 7)
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(1, 3)
-scale = Vector2(1.34367, 3.37435)
+[node name="TopSprite" type="Sprite2D" parent="TopPart"]
 texture = ExtResource("2_drdry")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopPart"]
+scale = Vector2(6, 6.5)
+shape = SubResource("RectangleShape2D_drdry")
+debug_color = Color(1, 0, 0, 0.666667)
+
+[node name="BottomPart" type="Area2D" parent="."]
+position = Vector2(0, 1280)
+scale = Vector2(2, 7)
+
+[node name="BottomSprite" type="Sprite2D" parent="BottomPart"]
+texture = ExtResource("2_drdry")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomPart"]
+scale = Vector2(6, 6.5)
+shape = SubResource("RectangleShape2D_cjuko")
+debug_color = Color(1, 0, 0, 0.666667)
+
+[node name="PassPart" type="Area2D" parent="."]
+position = Vector2(0, 640)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PassPart"]
+position = Vector2(0, -4.5)
+scale = Vector2(5, 50)
+shape = SubResource("RectangleShape2D_sh7k1")
+debug_color = Color(0.0246666, 0.74, 0, 0.419608)
