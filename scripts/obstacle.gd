@@ -12,6 +12,7 @@ func _ready() -> void:
 
 	TopPart.position.y -= rng.randi_range(-20,200)
 	BottomPart.position.y += rng.randi_range(-20,200)
+	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

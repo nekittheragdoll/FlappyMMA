@@ -1,16 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://b8iu07t0o2m7w"]
+[gd_scene load_steps=7 format=3 uid="uid://b8iu07t0o2m7w"]
 
 [ext_resource type="PackedScene" uid="uid://bqx6m8odrrx4j" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://6vn3b5lq2acm" path="res://scripts/game.gd" id="1_yqjtg"]
+[ext_resource type="Script" uid="uid://cta4wsv0ci348" path="res://scripts/hud.gd" id="3_lbhrr"]
+[ext_resource type="Script" uid="uid://5a3lidbye2fm" path="res://scripts/touch_area.gd" id="3_lnu2h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uwrxv"]
 size = Vector2(835.5, 44)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lbhrr"]
+
 [node name="Game" type="Node2D"]
+process_mode = 3
 script = ExtResource("1_yqjtg")
 metadata/_edit_lock_ = true
 
 [node name="Player" parent="." instance=ExtResource("1_uwrxv")]
+process_mode = 1
 position = Vector2(250, 501)
 metadata/_edit_lock_ = true
 
@@ -24,9 +30,41 @@ shape = SubResource("RectangleShape2D_uwrxv")
 debug_color = Color(0.996078, 0, 0.196078, 1)
 
 [node name="Spawn_Timer" type="Timer" parent="."]
+process_mode = 1
 process_callback = 0
 wait_time = 7.0
 autostart = true
+
+[node name="HUD" type="CanvasLayer" parent="."]
+process_mode = 3
+script = ExtResource("3_lbhrr")
+
+[node name="TouchArea" type="Area2D" parent="HUD"]
+position = Vector2(346, 612)
+script = ExtResource("3_lnu2h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/TouchArea"]
+scale = Vector2(20.3486, 41.7271)
+shape = SubResource("RectangleShape2D_lbhrr")
+
+[node name="Control" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="lbl_score" type="Label" parent="HUD/Control"]
+layout_mode = 0
+offset_left = 360.0
+offset_top = 120.0
+offset_right = 376.0
+offset_bottom = 159.0
+scale = Vector2(5, 5)
+theme_type_variation = &"HeaderLarge"
+text = "0"
 
 [connection signal="body_entered" from="Floor" to="." method="_on_obstacle_hit"]
 [connection signal="timeout" from="Spawn_Timer" to="." method="_spawn_obstacle"]
