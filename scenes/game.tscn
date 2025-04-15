@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b8iu07t0o2m7w"]
+[gd_scene load_steps=8 format=3 uid="uid://b8iu07t0o2m7w"]
 
 [ext_resource type="PackedScene" uid="uid://bqx6m8odrrx4j" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://6vn3b5lq2acm" path="res://scripts/game.gd" id="1_yqjtg"]
@@ -9,6 +9,9 @@
 size = Vector2(835.5, 44)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lbhrr"]
+
+[sub_resource type="SystemFont" id="SystemFont_lbhrr"]
+font_names = PackedStringArray("Impact")
 
 [node name="Game" type="Node2D"]
 process_mode = 3
@@ -29,10 +32,19 @@ metadata/_edit_lock_ = true
 shape = SubResource("RectangleShape2D_uwrxv")
 debug_color = Color(0.996078, 0, 0.196078, 1)
 
+[node name="Floor2" type="Area2D" parent="."]
+position = Vector2(350, -44)
+scale = Vector2(1, 1.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor2"]
+shape = SubResource("RectangleShape2D_uwrxv")
+debug_color = Color(0.996078, 0, 0.196078, 1)
+metadata/_edit_lock_ = true
+
 [node name="Spawn_Timer" type="Timer" parent="."]
 process_mode = 1
 process_callback = 0
-wait_time = 7.0
+wait_time = 3.0
 autostart = true
 
 [node name="HUD" type="CanvasLayer" parent="."]
@@ -55,6 +67,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="lbl_score" type="Label" parent="HUD/Control"]
 layout_mode = 0
@@ -62,9 +75,35 @@ offset_left = 360.0
 offset_top = 120.0
 offset_right = 376.0
 offset_bottom = 159.0
-scale = Vector2(5, 5)
 theme_type_variation = &"HeaderLarge"
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 16
+theme_override_constants/shadow_offset_y = 16
+theme_override_constants/outline_size = 48
+theme_override_constants/shadow_outline_size = 48
+theme_override_fonts/font = SubResource("SystemFont_lbhrr")
+theme_override_font_sizes/font_size = 200
 text = "0"
 
+[node name="btn_Pause" type="Button" parent="HUD/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.0305556
+anchor_top = 0.0078125
+anchor_right = -0.0305556
+anchor_bottom = 0.0078125
+offset_left = 582.0
+offset_top = 8.0
+offset_right = 722.0
+offset_bottom = 148.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 32
+theme_override_font_sizes/font_size = 96
+action_mode = 0
+text = "II"
+
 [connection signal="body_entered" from="Floor" to="." method="_on_obstacle_hit"]
+[connection signal="body_entered" from="Floor2" to="." method="_on_obstacle_hit"]
 [connection signal="timeout" from="Spawn_Timer" to="." method="_spawn_obstacle"]
+[connection signal="pressed" from="HUD/Control/btn_Pause" to="." method="_pause_the_game"]

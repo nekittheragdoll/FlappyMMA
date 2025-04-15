@@ -13,7 +13,7 @@ func _process(delta: float) -> void:
 func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton:
 		if event.is_pressed():
-			print("Click")
+			#print("Click")
 			Input.action_press("jump")	
 		elif not event.is_pressed():
 			Input.action_release("jump")

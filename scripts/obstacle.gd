@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var speed : float = 100
+@export var speed : float = 200
 var TopPart:Area2D
 var BottomPart:Area2D
 var rng=RandomNumberGenerator.new()
@@ -10,8 +10,13 @@ func _ready() -> void:
 	TopPart = get_node("TopPart")
 	BottomPart = get_node("BottomPart")
 
-	TopPart.position.y -= rng.randi_range(-20,200)
-	BottomPart.position.y += rng.randi_range(-20,200)
+	var offset = rng.randi_range(-32,32)*10
+	TopPart.position.y += offset
+	BottomPart.position.y += offset
+	
+	var distance = rng.randi_range(-3,3) * 10
+	TopPart.position.y += distance
+	BottomPart.position.y -= distance
 	
 
 
