@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://b8iu07t0o2m7w"]
+[gd_scene load_steps=13 format=3 uid="uid://b8iu07t0o2m7w"]
 
 [ext_resource type="PackedScene" uid="uid://bqx6m8odrrx4j" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://6vn3b5lq2acm" path="res://scripts/game.gd" id="1_yqjtg"]
@@ -16,6 +16,22 @@ font_names = PackedStringArray("Impact")
 [sub_resource type="SystemFont" id="SystemFont_iywne"]
 font_names = PackedStringArray("Impact")
 generate_mipmaps = true
+
+[sub_resource type="SystemFont" id="SystemFont_u5sy4"]
+font_names = PackedStringArray("Impact")
+
+[sub_resource type="Theme" id="Theme_gee14"]
+Label/constants/outline_size = 24
+Label/font_sizes/font_size = 64
+Label/fonts/font = SubResource("SystemFont_u5sy4")
+
+[sub_resource type="SystemFont" id="SystemFont_p57ef"]
+font_names = PackedStringArray("Impact")
+
+[sub_resource type="Theme" id="Theme_u5sy4"]
+Button/constants/outline_size = 36
+Button/font_sizes/font_size = 128
+Button/fonts/font = SubResource("SystemFont_p57ef")
 
 [node name="Game" type="Node2D"]
 process_mode = 3
@@ -114,6 +130,7 @@ action_mode = 0
 text = "II"
 
 [node name="PauseMenu" type="Control" parent="HUD"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -149,6 +166,43 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 36
 theme_override_fonts/font = SubResource("SystemFont_iywne")
 theme_override_font_sizes/font_size = 120
+text = "Quit"
+
+[node name="GameOverMenu" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="HUD/GameOverMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/GameOverMenu/CenterContainer"]
+custom_minimum_size = Vector2(512, 0)
+layout_mode = 2
+theme_override_constants/separation = 128
+
+[node name="lbl_gameover" type="Label" parent="HUD/GameOverMenu/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_gee14")
+text = "FeelsDeadMan"
+horizontal_alignment = 1
+
+[node name="btn_restart" type="Button" parent="HUD/GameOverMenu/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_u5sy4")
+text = "Restart"
+
+[node name="btn_quit" type="Button" parent="HUD/GameOverMenu/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_u5sy4")
 text = "Quit"
 
 [connection signal="body_entered" from="Floor" to="." method="_on_obstacle_hit"]

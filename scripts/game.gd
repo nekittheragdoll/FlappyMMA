@@ -3,14 +3,18 @@ extends Node2D
 @export var player: CharacterBody2D
 @export var obstacle_scene: Resource
 var menu_pause : Control
+@onready var game_over_menu : Control = $HUD/GameOverMenu
 
 var Score: int = 0;
 var HUD : CanvasLayer
 
 
 enum State{START,PLAY,PAUSED,GAMEOVER}
-var current_state = State.START
-var next_state = current_state
+var current_state
+var next_state = State.START
+
+signal game_ended
+signal reload_request
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -18,7 +22,9 @@ func _ready() -> void:
 	menu_pause = get_node("HUD/PauseMenu")
 	player = get_node("Player")
 	obstacle_scene = preload("res://scenes/obstacle.tscn")
-	
+	$HUD/PauseMenu/MenuItems/btn_quit.pressed.connect(func(): emit_signal("game_ended"))
+	$HUD/GameOverMenu/CenterContainer/VBoxContainer/btn_restart.pressed.connect(func(): emit_signal("reload_request"))
+	$HUD/GameOverMenu/CenterContainer/VBoxContainer/btn_quit.pressed.connect(func(): emit_signal("game_ended"))
 	
 	menu_pause.visible = false
 	get_tree().paused = true
@@ -26,24 +32,12 @@ func _ready() -> void:
 		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
-	current_state = next_state
+	if next_state != current_state:
+		current_state = next_state
+		_change_state()
 	if (current_state == State.START and Input.is_action_just_pressed("jump")):
 		next_state = State.PLAY
 	
-	match current_state:
-		State.START:
-			get_tree().paused = true
-			menu_pause.visible = false
-		State.PLAY:
-			get_tree().paused = false
-			menu_pause.visible = false
-		State.PAUSED:
-			get_tree().paused = true
-			menu_pause.visible = true
-		State.GAMEOVER:
-			get_tree().paused = true
-			menu_pause.visible = false
-			get_tree().reload_current_scene()
 	
 	if menu_pause.visible:
 		menu_pause.mouse_filter = Control.MOUSE_FILTER_STOP
@@ -51,8 +45,34 @@ func _physics_process(delta: float) -> void:
 	else:
 		menu_pause.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		menu_pause.focus_mode = Control.FOCUS_NONE
-			
+	
+	if game_over_menu.visible:
+		game_over_menu.mouse_filter = Control.MOUSE_FILTER_STOP
+		game_over_menu.focus_mode = Control.FOCUS_ALL
+	else:
+		game_over_menu.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		game_over_menu.focus_mode = Control.FOCUS_NONE
 		
+		
+func _change_state():
+	match current_state:
+		State.START:
+			get_tree().paused = true
+			menu_pause.visible = false
+			game_over_menu.visible = false
+		State.PLAY:
+			get_tree().paused = false
+			menu_pause.visible = false
+			game_over_menu.visible = false
+		State.PAUSED:
+			get_tree().paused = true
+			game_over_menu.visible = false
+			menu_pause.visible = true
+		State.GAMEOVER:
+			game_over_menu.visible = true
+			menu_pause.visible = false
+			get_tree().paused = true
+			#emit_signal("game_ended")
 
 func _on_obstacle_hit(body: Node2D) -> void:
 	if (body == player):
