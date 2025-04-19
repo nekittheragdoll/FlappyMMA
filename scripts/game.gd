@@ -2,7 +2,7 @@ extends Node2D
 
 @export var player: CharacterBody2D
 @export var obstacle_scene: Resource
-var pause_btn: Button
+var menu_pause : Control
 
 var Score: int = 0;
 var HUD : CanvasLayer
@@ -15,9 +15,12 @@ var next_state = current_state
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	HUD = get_node("HUD")
+	menu_pause = get_node("HUD/PauseMenu")
 	player = get_node("Player")
 	obstacle_scene = preload("res://scenes/obstacle.tscn")
-	pause_btn = get_node("HUD/Control/btn_Pause")
+	
+	
+	menu_pause.visible = false
 	get_tree().paused = true
 	
 		
@@ -30,14 +33,24 @@ func _physics_process(delta: float) -> void:
 	match current_state:
 		State.START:
 			get_tree().paused = true
+			menu_pause.visible = false
 		State.PLAY:
 			get_tree().paused = false
+			menu_pause.visible = false
 		State.PAUSED:
 			get_tree().paused = true
+			menu_pause.visible = true
 		State.GAMEOVER:
 			get_tree().paused = true
+			menu_pause.visible = false
 			get_tree().reload_current_scene()
-
+	
+	if menu_pause.visible:
+		menu_pause.mouse_filter = Control.MOUSE_FILTER_STOP
+		menu_pause.focus_mode = Control.FOCUS_ALL
+	else:
+		menu_pause.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		menu_pause.focus_mode = Control.FOCUS_NONE
 			
 		
 
@@ -72,5 +85,7 @@ func _obstacle_creator(obstacle_scene:Resource, position: int) -> Area2D:
 func _pause_the_game():
 	if (current_state == State.PLAY):
 		next_state = State.PAUSED
-	elif (current_state == State.PAUSED):
+		
+func _continue_the_game():
+	if (current_state == State.PAUSED):
 		next_state = State.PLAY
