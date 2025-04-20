@@ -192,7 +192,7 @@ theme_override_constants/separation = 128
 [node name="lbl_gameover" type="Label" parent="HUD/GameOverMenu/CenterContainer/VBoxContainer"]
 layout_mode = 2
 theme = SubResource("Theme_gee14")
-text = "FeelsDeadMan"
+text = "Game Over"
 horizontal_alignment = 1
 
 [node name="btn_restart" type="Button" parent="HUD/GameOverMenu/CenterContainer/VBoxContainer"]

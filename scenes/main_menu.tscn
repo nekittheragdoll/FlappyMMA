@@ -143,18 +143,30 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="Settings"]
+[node name="Sprite" type="TextureRect" parent="Settings"]
+layout_mode = 2
+offset_left = 220.0
+offset_top = 900.0
+offset_right = 500.0
+offset_bottom = 1180.0
+texture = ExtResource("2_ekxnf")
+stretch_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="Settings"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
+anchors_preset = -1
+anchor_left = 0.05
+anchor_right = 0.95
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Settings/CenterContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Settings/MarginContainer"]
 layout_mode = 2
+size_flags_vertical = 4
+alignment = 1
 
-[node name="NicknameEdit" type="LineEdit" parent="Settings/CenterContainer/VBoxContainer"]
+[node name="NicknameEdit" type="LineEdit" parent="Settings/MarginContainer/VBoxContainer"]
 layout_mode = 2
 focus_mode = 1
 theme = SubResource("Theme_oa1go")
@@ -163,11 +175,12 @@ alignment = 1
 max_length = 10
 script = ExtResource("3_wu84c")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Settings/CenterContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Settings/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 100
+alignment = 1
 
-[node name="btn_left" type="Button" parent="Settings/CenterContainer/VBoxContainer/HBoxContainer"]
+[node name="btn_left" type="Button" parent="Settings/MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(90, 0)
 layout_mode = 2
 theme_override_constants/outline_size = 36
@@ -175,12 +188,7 @@ theme_override_fonts/font = SubResource("SystemFont_wu84c")
 theme_override_font_sizes/font_size = 128
 text = "<"
 
-[node name="Sprite" type="TextureRect" parent="Settings/CenterContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-texture = ExtResource("2_ekxnf")
-expand_mode = 2
-
-[node name="btn_right" type="Button" parent="Settings/CenterContainer/VBoxContainer/HBoxContainer"]
+[node name="btn_right" type="Button" parent="Settings/MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(90, 0)
 layout_mode = 2
 theme_override_constants/outline_size = 36
@@ -204,4 +212,6 @@ text = "<"
 [connection signal="pressed" from="Menu/VBoxContainer/btn_settings" to="." method="_on_btn_settings_pressed"]
 [connection signal="pressed" from="Menu/VBoxContainer/btn_highscores" to="." method="_on_btn_highscores_pressed"]
 [connection signal="pressed" from="HighScores/btn_back" to="." method="_on_btn_back_pressed"]
+[connection signal="pressed" from="Settings/MarginContainer/VBoxContainer/HBoxContainer/btn_left" to="." method="set_skin" binds= ["left"]]
+[connection signal="pressed" from="Settings/MarginContainer/VBoxContainer/HBoxContainer/btn_right" to="." method="set_skin" binds= ["right"]]
 [connection signal="pressed" from="Settings/btn_back" to="." method="_on_btn_back_pressed"]

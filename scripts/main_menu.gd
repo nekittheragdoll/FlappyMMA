@@ -6,6 +6,9 @@ extends CanvasLayer
 
 signal start_game
 
+#var idx = 0
+@onready var spriteselector : TextureRect = $Settings/Sprite
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	
@@ -14,6 +17,9 @@ func _ready() -> void:
 	for c in get_children():
 		c.position.x = -720
 	tween.tween_property($Menu, "position:x", 0,0.8).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
+	
+	#Global.player_skin = Global.skins[0]
+	spriteselector.texture = Global.skins[Global.skin_pointer]
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -49,5 +55,13 @@ func _slide_out(node: Node):
 	tween = create_tween()
 	tween.tween_property(node, "position:x", -720,0.8).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
 	await tween.finished
+	
+func set_skin(direction : String):
+	match direction:
+		"left": Global.skin_pointer = (Global.skin_pointer-1) % Global.skins.size()
+		"right":Global.skin_pointer = (Global.skin_pointer+1) % Global.skins.size()
+	Global.player_skin = Global.skins[Global.skin_pointer] 
+	spriteselector.texture = Global.player_skin
+	
 	
 	

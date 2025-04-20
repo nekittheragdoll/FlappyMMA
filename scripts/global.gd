@@ -1,7 +1,14 @@
 extends Node
 
 var PlayerName : String = "Player"
-var LastScore : int = 0;
+
+var player_skin : Texture2D
+var skin_pointer : int = 0
+
+@onready var skins : Array[Texture2D] = [
+	preload("res://assets/sprites/chicken_jockey.png"),
+	preload("res://assets/sprites/bombardiro_crocodilo.png")
+	]
 
 var PlayerScore : Dictionary = {"placeholder" : 1}
 
