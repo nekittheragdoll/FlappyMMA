@@ -8,9 +8,11 @@
 [sub_resource type="SystemFont" id="SystemFont_bqqt6"]
 font_names = PackedStringArray("Impact")
 generate_mipmaps = true
+subpixel_positioning = 0
 
 [sub_resource type="SystemFont" id="SystemFont_8ln24"]
 font_names = PackedStringArray("Impact")
+subpixel_positioning = 0
 
 [sub_resource type="Theme" id="Theme_rtw2f"]
 default_font = SubResource("SystemFont_8ln24")
@@ -19,9 +21,11 @@ Label/font_sizes/font_size = 64
 
 [sub_resource type="SystemFont" id="SystemFont_l6cm7"]
 font_names = PackedStringArray("Impact")
+subpixel_positioning = 0
 
 [sub_resource type="SystemFont" id="SystemFont_rtw2f"]
 font_names = PackedStringArray("Impact")
+subpixel_positioning = 0
 
 [sub_resource type="Theme" id="Theme_oa1go"]
 LineEdit/constants/outline_size = 24
@@ -30,6 +34,7 @@ LineEdit/fonts/font = SubResource("SystemFont_rtw2f")
 
 [sub_resource type="SystemFont" id="SystemFont_wu84c"]
 font_names = PackedStringArray("Impact")
+subpixel_positioning = 0
 
 [node name="MainMenu" type="CanvasLayer"]
 script = ExtResource("1_l6cm7")

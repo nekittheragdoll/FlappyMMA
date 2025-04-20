@@ -69,6 +69,7 @@ func _change_state():
 			game_over_menu.visible = false
 			menu_pause.visible = true
 		State.GAMEOVER:
+			add_score()
 			game_over_menu.visible = true
 			menu_pause.visible = false
 			get_tree().paused = true
@@ -109,3 +110,8 @@ func _pause_the_game():
 func _continue_the_game():
 	if (current_state == State.PAUSED):
 		next_state = State.PLAY
+
+func add_score():
+	if (Global.PlayerScore.has(Global.PlayerName) and Global.PlayerScore[Global.PlayerName] >= Score): return
+	else: Global.PlayerScore[Global.PlayerName] = Score
+	
