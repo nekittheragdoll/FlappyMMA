@@ -31,10 +31,12 @@ func _load_menu():
 	active_scene.start_game.connect(_load_game)
 	$GameScenes.add_child(active_scene)
 
-const SAVE_PATH = "res://highscore.json"
+const SAVE_PATH = "user://highscore.json"
 const seed = "fhae4io23fxg45u4308k"  # Patriku, nedelej to! >:(
 
 func save_highscore() -> void:
+	if not OS.has_feature("android"): return
+	
 	var json_string = JSON.stringify(Global.PlayerScore)
 	
 	var save_file = FileAccess.open_encrypted_with_pass(SAVE_PATH, FileAccess.WRITE, seed)
@@ -43,6 +45,8 @@ func save_highscore() -> void:
 	#print("SAVED")
 
 func load_highscore() -> void:
+	if not OS.has_feature("android"): return
+	
 	if not FileAccess.file_exists(SAVE_PATH): return
 	var file = FileAccess.open_encrypted_with_pass(SAVE_PATH, FileAccess.READ, seed)
 	if file == null: return
@@ -59,3 +63,23 @@ func _fix_scores(data : Dictionary):
 		data[i] = int(data[i])
 	return data
 	
+func _http_submit():
+	var url = "https://webhook.site/"
+	var headers = ["Content-Type: application/json"]
+	var json_body = JSON.stringify(Global.PlayerScore)
+	
+	$HTTPRequest.request(
+		url,
+		headers,
+		HTTPClient.METHOD_POST,
+		json_body,
+	)
+	
+	
+
+
+func _on_btn_mute_toggled() -> void:
+	if $sound_canvas/btn_sound.button_pressed:
+		AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), -80)
+	else:
+		AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), 0)

@@ -10,7 +10,7 @@ var skin_pointer : int = 0
 	preload("res://assets/sprites/bombardiro_crocodilo.png")
 	]
 
-var PlayerScore : Dictionary = {"placeholder" : 1}
+var PlayerScore : Dictionary = {}
 
 func trim_highscores():
 	var highscores = PlayerScore

@@ -1,9 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://b8iu07t0o2m7w"]
+[gd_scene load_steps=15 format=3 uid="uid://b8iu07t0o2m7w"]
 
 [ext_resource type="PackedScene" uid="uid://bqx6m8odrrx4j" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://6vn3b5lq2acm" path="res://scripts/game.gd" id="1_yqjtg"]
 [ext_resource type="Script" uid="uid://cta4wsv0ci348" path="res://scripts/hud.gd" id="3_lbhrr"]
 [ext_resource type="Script" uid="uid://5a3lidbye2fm" path="res://scripts/touch_area.gd" id="3_lnu2h"]
+[ext_resource type="AudioStream" uid="uid://bxl42trfvs53q" path="res://assets/sound/punch.mp3" id="5_iywne"]
+[ext_resource type="AudioStream" uid="uid://cjvlx4wvbfv87" path="res://assets/sound/retro-coin-4-236671.mp3" id="6_p57ef"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uwrxv"]
 size = Vector2(835.5, 44)
@@ -204,6 +206,12 @@ text = "Restart"
 layout_mode = 2
 theme = SubResource("Theme_u5sy4")
 text = "Quit"
+
+[node name="ded_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_iywne")
+
+[node name="score_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_p57ef")
 
 [connection signal="body_entered" from="Floor" to="." method="_on_obstacle_hit"]
 [connection signal="body_entered" from="Floor2" to="." method="_on_obstacle_hit"]

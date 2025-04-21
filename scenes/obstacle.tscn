@@ -1,11 +1,13 @@
 [gd_scene load_steps=6 format=3 uid="uid://ogox70fdsivb"]
 
 [ext_resource type="Script" uid="uid://b234cu4257pqq" path="res://scripts/obstacle.gd" id="1_7ukg5"]
-[ext_resource type="Texture2D" uid="uid://xdfqa8al2epl" path="res://icon.svg" id="2_drdry"]
+[ext_resource type="Texture2D" uid="uid://byflemcmwfyfr" path="res://assets/sprites/obstacle.png" id="2_drdry"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_drdry"]
+size = Vector2(17.9167, 20.2619)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cjuko"]
+size = Vector2(17.9167, 20.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sh7k1"]
 size = Vector2(20, 24.9082)
@@ -14,28 +16,30 @@ size = Vector2(20, 24.9082)
 script = ExtResource("1_7ukg5")
 
 [node name="TopPart" type="Area2D" parent="."]
-scale = Vector2(2, 7)
 
 [node name="TopSprite" type="Sprite2D" parent="TopPart"]
+rotation = 3.14159
 texture = ExtResource("2_drdry")
+flip_h = true
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TopPart"]
-scale = Vector2(6, 6.5)
+position = Vector2(0.499998, 5.50002)
+scale = Vector2(12, 42)
 shape = SubResource("RectangleShape2D_drdry")
 debug_color = Color(1, 0, 0, 0.666667)
 metadata/_edit_lock_ = true
 
 [node name="BottomPart" type="Area2D" parent="."]
 position = Vector2(0, 1280)
-scale = Vector2(2, 7)
 
 [node name="BottomSprite" type="Sprite2D" parent="BottomPart"]
 texture = ExtResource("2_drdry")
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BottomPart"]
-scale = Vector2(6, 6.5)
+position = Vector2(0.499998, -1.5)
+scale = Vector2(12, 42)
 shape = SubResource("RectangleShape2D_cjuko")
 debug_color = Color(1, 0, 0, 0.666667)
 metadata/_edit_lock_ = true

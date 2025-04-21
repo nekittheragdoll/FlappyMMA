@@ -69,6 +69,7 @@ func _change_state():
 			game_over_menu.visible = false
 			menu_pause.visible = true
 		State.GAMEOVER:
+			$ded_sound.playing = true
 			add_score()
 			game_over_menu.visible = true
 			menu_pause.visible = false
@@ -80,6 +81,7 @@ func _on_obstacle_hit(body: Node2D) -> void:
 		next_state = State.GAMEOVER
 
 func _on_greenline_touch(body: Node2D) -> void:
+	$score_sound.playing = true
 	Score += 1
 	HUD.UpdateScore(Score)
 

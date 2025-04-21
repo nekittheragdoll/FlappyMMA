@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bqx6m8odrrx4j"]
+[gd_scene load_steps=5 format=3 uid="uid://bqx6m8odrrx4j"]
 
 [ext_resource type="Script" uid="uid://dd8is85gix3ug" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://cfx33tu8gn3rs" path="res://assets/sprites/bombardiro_crocodilo.png" id="2_g2els"]
+[ext_resource type="AudioStream" uid="uid://bvk17c2ihpfaw" path="res://assets/sound/swing-whoosh-110410.mp3" id="3_qhqgy"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qhqgy"]
 radius = 71.0211
@@ -16,3 +17,7 @@ texture = ExtResource("2_g2els")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_qhqgy")
 debug_color = Color(0.428823, 0.00236996, 0.802299, 0.701961)
+
+[node name="flap_sound" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("3_qhqgy")

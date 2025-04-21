@@ -19,6 +19,7 @@ func _physics_process(delta: float) -> void:
 	
 	if (Input.is_action_just_pressed("jump")):
 		velocity.y = JUMP_STRENGTH * -1
+		$flap_sound.playing = true
 	
 	velocity.y += GRAVITY * delta;
 	position += velocity * delta
@@ -28,6 +29,7 @@ func _physics_process(delta: float) -> void:
 	
 func _skin_adjust():
 	sprite.texture = Global.skins[Global.skin_pointer]
+	sprite.scale = Vector2(1,1)
 	match Global.skin_pointer:
 		0: sprite.scale = Vector2(0.5,0.5)
 	

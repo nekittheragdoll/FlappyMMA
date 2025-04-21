@@ -1,9 +1,44 @@
-[gd_scene load_steps=2 format=3 uid="uid://daxlfp072nhx2"]
+[gd_scene load_steps=7 format=3 uid="uid://daxlfp072nhx2"]
 
 [ext_resource type="Script" uid="uid://b0l6nljrhc2kg" path="res://scripts/main.gd" id="1_o5qli"]
+[ext_resource type="Texture2D" uid="uid://dge3bni540rdn" path="res://assets/background.jpg" id="2_0wfyh"]
+[ext_resource type="Texture2D" uid="uid://dxltfaxmhovaq" path="res://assets/sprites/sound_icon.png" id="3_sugp2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sugp2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jyhfs"]
+atlas = ExtResource("3_sugp2")
+region = Rect2(0, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tbgi4"]
+atlas = ExtResource("3_sugp2")
+region = Rect2(330, 0, 192, 192)
 
 [node name="Main" type="Node"]
 process_mode = 3
 script = ExtResource("1_o5qli")
 
+[node name="Background" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_sugp2")
+texture = ExtResource("2_0wfyh")
+centered = false
+
 [node name="GameScenes" type="Node" parent="."]
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+use_threads = true
+
+[node name="sound_canvas" type="CanvasLayer" parent="."]
+
+[node name="btn_sound" type="TextureButton" parent="sound_canvas"]
+process_mode = 3
+offset_left = 312.0
+offset_top = 10.0
+offset_right = 504.0
+offset_bottom = 202.0
+scale = Vector2(0.5, 0.5)
+toggle_mode = true
+texture_normal = SubResource("AtlasTexture_jyhfs")
+texture_pressed = SubResource("AtlasTexture_tbgi4")
+
+[connection signal="pressed" from="sound_canvas/btn_sound" to="." method="_on_btn_mute_toggled"]
