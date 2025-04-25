@@ -1,9 +1,10 @@
 extends Node2D
 
-@export var speed : float = 200
+@export var speed = 200
 var TopPart:Area2D
 var BottomPart:Area2D
 var rng=RandomNumberGenerator.new()
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

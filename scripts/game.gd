@@ -5,7 +5,9 @@ extends Node2D
 var menu_pause : Control
 @onready var game_over_menu : Control = $HUD/GameOverMenu
 
-var Score: int = 0;
+var obst_cnt = 0
+var obst_speed = 0
+var Score: int = 0
 var HUD : CanvasLayer
 
 
@@ -88,6 +90,18 @@ func _on_greenline_touch(body: Node2D) -> void:
 
 func _spawn_obstacle() -> void:
 	var obstacle = _obstacle_creator(obstacle_scene, 900)
+	obst_cnt += 1
+	if obst_cnt > 5:
+		$Spawn_Timer.paused = true
+		if $Spawn_Timer.wait_time > 2:
+			$Spawn_Timer.wait_time -= 0.5
+		await get_tree().create_timer(1).timeout
+		
+		obst_speed+=1
+		obst_cnt = 1
+		$Spawn_Timer.paused = false
+		print("INCREASE")
+	obstacle.speed += obst_speed*50
 	add_child(obstacle)
 	
 	
